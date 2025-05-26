@@ -2,11 +2,10 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "Visitd Help",
   "logo": {
-    "dark": "/visitdlogo.svg",
-    "light": "/visitdlogo.svg"
+    "dark": "visitdlogo.svg",
+    "light": "visitdlogo.svg"
   },
-  "favicon": "/visitdlogo.png",
-  "versions": ["v1"],
+  "favicon": "visitdlogo.png",
   "colors": {
     "primary": "#007AFF",
     "light": "#4DA6FF",
