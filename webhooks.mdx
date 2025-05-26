@@ -1,0 +1,82 @@
+---
+title: Webhooks
+description: Using webhooks to integrate Visitd with external services
+---
+
+<div>
+# Webhooks
+
+A webhook is simply a URL. The URL points to a web site that is specifically configured to receive data from Visitd.
+
+<Warning>
+Webhooks are an experimental feature that are not fully supported. Breaking changes may be introduced at any time.
+
+If you don't know what webhooks are, they probably are not useful to you. 
+</Warning>
+
+<Error>
+The webhook functionality is provided with no warranty of any kind.  
+</Error>
+
+<Info>
+If a webhook is configured, Visitd will make a POST request to the URL whenever you arrive or depart a location, as appropriate.
+
+There are a few things to note:
+        
+1.  Visitd always makes a POST request to the URL. No other methods are allowed.
+
+2.  No error checking is performed.
+
+3.  If a token is provided, it will be sent to the server as a Bearer token.
+
+4.  Any data returned from the request is ignored.
+
+5.  If a webhook is provided, it will be called for every location. It is not possible to only call a webhook for a specific location.
+</Info>
+
+Visitd can make a HTTP request to a web server whenever you arrive or depart a location. To enable a webhook:
+
+1.  On the main configuration screen, click on Edit or Set on either the Arrival Webhook or Departure Webhook line. If there is already a webhook configured, it will say Edit. If there
+is not yet a webhook configured, it will say Set.
+
+2. Enter the URL in the first box and the auth token, if there is one, in the second box.
+
+3. Click on Test. When satisfied with the webhook, click on Save.
+
+4. Click on Close.
+
+To test the webhook, click on Test Webhook. If the server returns any data, it will be displayed.
+
+To save the webhook, click on Save.
+
+To close the dialog, click on Close.
+
+To remove a configured webhook, set the URL to an empty string.
+
+The data posted to the server will be a JSON object like:
+
+<Info>
+```
+{
+    latitude: Double,
+    longitude: Double,
+    horizontalAccuracy: Double,
+    arrivalDateTimestamp: Double,
+    departureDateTimestamp: Double,
+    arrivalDate: Date,
+    departureDate: Date,
+}
+```
+
+If the post is the result of an arrival, the departureDate will be Date.distantFuture, or January 1, 4001 at 12:00:00 AM GMT. The departureDateTimestamp will be approximately 64,092,211,200.
+</Info>
+<div style="width: 33.333333%; margin: 1.25rem auto;">
+
+![Webhooks Screen](/webhooks.png)
+
+</div>
+
+## Testing
+To test a webhoook, enter the URL and the token, if any, and tap on Test. Visitd will make a POST request to the URL. If the server returns any data, it will be displayed.
+
+</div>

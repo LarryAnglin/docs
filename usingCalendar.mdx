@@ -1,0 +1,65 @@
+---
+title: Using the Calendar
+description: Understanding calendar entries created by Visitd
+---
+
+__Using the Calendar__
+
+Visitd records the places you visit on your calendar. This section explains the format of each entry on the calendar.
+
+The picture below shows a typical entry created by Visitd:
+
+<div style="width: 33.333333%; margin: 1.25rem auto;">
+
+![Calendar Entry](/eventEntry.jpg)
+
+</div>
+
+The fields are explained below.
+
+1.  __Title__
+
+If the address is available, it is the title. If no address is available, then the latitude and longitude of the location is used.
+
+2.  __Latitude and Longitude__
+
+In decimal degrees.
+
+3.  __Date__
+
+The date of the event.
+
+4.  __Start and End times__
+
+5.  __Start of Event__
+
+6.  __End of Event__
+
+7.  __Title__
+
+8.  __Latitude__
+
+The latitude returned by the GPS in decimal degrees.
+
+9.  __Longitude__
+
+The longitude returned by the GPS in decimal degrees.
+
+10.  __Horizontal Accuracy__
+
+The accuracy of the location in meters.
+
+11.  __URL__
+
+A URL that will display a map of the location with the location in the center.
+
+Clicking on the URL in the example shows the map below.
+
+<div style="min-width: 18rem; margin: 1.25rem auto;">
+
+![Gym Map](/gymMap.png)
+
+</div>
+
+The data may seem redundant, it is designed to be easily parsed by programs that read events in the ICS format so some information is presented twice - 
+once for the user and again to simplify parsing the data.

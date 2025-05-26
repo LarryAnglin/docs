@@ -1,0 +1,81 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Visitd Help",
+  "logo": {
+    "dark": "/visitdlogo.svg",
+    "light": "/visitdlogo.svg"
+  },
+  "favicon": "/visitdlogo.png",
+  "colors": {
+    "primary": "#007AFF",
+    "light": "#4DA6FF",
+    "dark": "#0051A8",
+    "anchors": {
+      "from": "#007AFF",
+      "to": "#4DA6FF"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Visitd App",
+      "url": "https://visitd.app"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "App Store",
+    "url": "https://apps.apple.com/us/app/visitd-location-history-logger/id1565903346"
+  },
+  "tabs": [],
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": [
+        "index",
+        "locationTracking",
+        "calendar"
+      ]
+    },
+    {
+      "group": "Using Visitd",
+      "pages": [
+        "using",
+        "permissions",
+        "calendarPermission",
+        "usingCalendar"
+      ]
+    },
+    {
+      "group": "Exporting Data",
+      "pages": [
+        "exporting",
+        "csvExample",
+        "kmlExample",
+        "jsonExample"
+      ]
+    },
+    {
+      "group": "Advanced Features",
+      "pages": [
+        "logging",
+        "webhooks",
+        "webhooksExample",
+        "webhooksFurther"
+      ]
+    },
+    {
+      "group": "Resources",
+      "pages": [
+        "faq",
+        "issues",
+        "release",
+        "dmca"
+      ]
+    }
+  ],
+  "footerSocials": {},
+  "analytics": {},
+  "feedback": {
+    "thumbsRating": true,
+    "suggestEdit": false
+  }
+}

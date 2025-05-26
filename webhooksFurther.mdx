@@ -1,0 +1,22 @@
+---
+title: Webhooks Going Further
+description: Advanced webhook use cases and integrations
+---
+
+# Webhooks Going Further
+
+Once you have a server that can accept data from Visitd, you can do all sorts of things with it. For example, you could:
+
+## 1. Send an email each time you arrive at a customer site.
+ 
+If you know the latitude and longitude of the customer site, you can compare that to the latitude and longitude and horizontal accuracy from Visitd 
+to detect a visit to a client. Then you can use a service like [Mailgun](https://try.mailgun.com) to send an email to keep a record of the visit.  
+ 
+## 2. Add a line to a Google spreadsheet
+ 
+You could use Google's API to [add an entry to a Google Spreadsheet](https://developers.google.com/workspace/guides/get-started).
+
+## 3. Post a Slack message
+[Using Slack's API](https://api.slack.com/messaging/webhooks)
+
+Or whatever you can dream up.

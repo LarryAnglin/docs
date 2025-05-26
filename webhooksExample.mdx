@@ -1,0 +1,187 @@
+---
+title: Webhooks Example
+description: Example implementation of webhooks with Cloudflare Workers and Airtable
+---
+
+<div>
+# Webhooks Example
+
+Let's suppose that you want to collect a record of everywhere you go into a spreadsheet to faciliate further analysis. The obvious solution is to export your visits as a CSV file
+ and import that into a spreadsheet program. Or you can use a webhook.
+
+ A webhook is a URL that points to a page on the internet that processes the information. So the first step is to build such a web page. There are a lot of companies that provide
+ that service, this example will use [Cloudflare's Workers](https://www.cloudflare.com/developer-platform/workers/) product.
+
+ <Info>
+ Cloudflare has a generous free tier that should be ample for getting started. While I use and like Cloudflare, this example is not an endorsement. Similar products that can
+ accomplish the same thing include Amazon's Lambda, Google Cloud Functions, and Microsoft Azure Functions. Or if you prefer, any server that you manage with an internet connection
+ should work.
+ </Info>
+
+For a spreadsheet, we'll use Airtable. Airtable has an ample free tier and a friendly API.  
+
+This example is based on the excellent tutorial at Cloudflare (Handle Form Submissions With Airtable)[https://developers.cloudflare.com/workers/tutorials/handle-form-submissions-with-airtable/].
+There are only a few extra lines of code required to make it work with Visitd.
+
+The first task is to create a script to accept the POST data from Visitd. When you create a Worker at Cloudflare, that script is automatically assigned a URL. That URL is
+what you will provide to Visitd.
+
+The code below is the simplified script that accepts the data from Visitd and sends a reply for testing.
+
+````
+export default {
+
+    // parse the data from Visitd into a JSON object.
+    async function readRequestBody(request) {
+        let visit = await request.json()
+        return visit 
+    }
+
+    // Main entry point
+    // Get the JSON object and return it to Visitd to confirm operation.
+    async fetch(request, env) {
+        const json = await readRequestBody(request);
+        const retBody = `The request body sent in was ${json}`;
+        return new Response(retBody);
+    }
+};
+````
+
+That code is sufficient to get the data from Visitd.
+
+The next step is to process that data and send it to Airtable. Airtable expects the data to have a specific format - it should be a JSON object
+with a single field, fields, that contains the column names and values for the airtable.
+
+The code below takes the data received from Visitd and creates such an object.
+    
+
+````
+const json = await readRequestBody(request);
+const retBody = `The request body sent in was ${json}`;
+
+// Convert the decimal timestamp into Date objects.
+let arrive = new Date(json.arrivalDateTimestamp * 1000) 
+let depart = new Date(json.departureDateTimestamp * 1000)
+
+// Create an object in the format Airtable expects.
+// Name is an identifier for this device.  It can be any string.
+const airBody = {
+  fields: {
+    "Name": "larry's iPhone 12 Pro Max",
+    "latitude": json.latitude,
+    "longitude": json.longitude,
+    "horizontalAccuracy": json.horizontalAccuracy,
+    "arrivalDateTimestamp": json.arrivalDateTimestamp,
+    "departureDateTimestamp": json.departureDateTimestamp,
+    "Arrival": arrive,
+    "Departure": depart
+  }
+}
+````
+
+Now that we have an appropriate object, time to send it to Airtable. Using the tutorial above, we know we need three pieces of informatoin to write to Airtable:
+
+1.  Your personal access token.
+2.  Your Base ID.
+3.  The name of the table.
+
+The tutorial goes over how to create a personal access token and find the Base ID. The name of the table is whatever you named it. In this case, the name is 'Visits'.
+
+<Warning>
+Never put confidential information like your Personal Access Token in source code. The tutorial reviews how to store that data in the environment and reference
+it from the script. In my implmenetation, I have stored the token and the BaseID in the environment and hard-coded the name of the table.
+</Warning>
+
+Below is the code to send the data to Airtable. Note that the BaseID and the token are being retrieved from the environment and "Visits" is the name of the table at Airtable.
+
+````
+ async function createAirtableRecord(env, body) {
+  let url = `https://api.airtable.com/v0/${env.baseid}/${encodeURIComponent("Visits")}`
+  try {
+    const result = fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        Authorization: `Bearer ${env.airtable}`,
+        'Content-Type': 'application/json', 
+      }
+    })
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+}
+````
+
+Now we just have to put the code all together.
+    
+````
+export default {
+
+        async fetch(request, env) {
+
+            /**
+            * readRequestBody reads in the incoming request body
+            * Use await readRequestBody(..) in an async function to get the string
+            * @param {Request} request the incoming request to read from
+            */
+            async function readRequestBody(request) {
+                let visit = await request.json()
+                return visit 
+            }
+
+            /**
+            * createAirtableRecord takes the formatted JSON object and builds a URL to post it to.
+            * Use await createAirtableRecord(..) in an async function to send the data to Airtable.
+            * @param {env} is the local environment that holds baseid and the token.
+            * @param {body} is the data to send to Airtable.
+            async function createAirtableRecord(env, body) {
+                let url = `https://api.airtable.com/v0/${env.baseid}/${encodeURIComponent("Visits")}`
+                try {
+                const result = fetch(url, {
+                    method: 'POST',
+                    body: JSON.stringify(body),
+                    headers: {
+                    Authorization: `Bearer ${env.airtable}`,
+                    'Content-Type': 'application/json', 
+                    }
+                })
+                return result;
+                } catch (error) {
+                console.error(error);
+                }
+            }
+
+            /** Main Program 
+            * Get the data from Visitd
+            * Create the Airtable object from the data.
+            * Send the data to Airtable
+            */
+            const json = await readRequestBody(request);
+            const retBody = `The request body sent in was ${json}`;
+            let arrive = new Date(json.arrivalDateTimestamp * 1000)
+            let depart = new Date(json.departureDateTimestamp * 1000)
+
+
+            const airBody = {
+                fields: {
+                "Name": "larry's iPhone 12 Pro Max",
+                "latitude": json.latitude,
+                "longitude": json.longitude,
+                "horizontalAccuracy": json.horizontalAccuracy,
+                "arrivalDateTimestamp": json.arrivalDateTimestamp,
+                "departureDateTimestamp": json.departureDateTimestamp,
+                "Arrival": arrive,
+                "Departure": depart
+                }
+            }
+
+
+            console.log("airBody: ", airBody)
+            await createAirtableRecord(env, airBody)
+            return new Response(retBody);
+        }
+
+};
+````
+</div>

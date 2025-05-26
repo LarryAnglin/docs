@@ -1,0 +1,44 @@
+---
+title: Release Notes
+description: Version history and updates for Visitd
+---
+
+<div>
+# Release Notes
+
+## Version 0.8
+
+### Release 191
+#### May 28, 2024
+    
+Release 191 has several major improvments over the prior beta release 140. These include:
+
+#### Fix to prevent a crash when updating the database on a background thread.
+The only known cause of a crash is when the app is launched by the OS on a background thread in response
+to a location update and the app saves data to the database context on a different thread than the context
+was created on.
+
+SwiftData introduces an entire new framework for dealing with concurrency issues. Adopting the framework
+required extensive modifcations to large sections of the code base.
+
+#### Saving to a shared calendar
+Version 140 used a feature of iOS 17 to only write to a user's calender. Without being able to query the calendar
+store for a list of calendars, it was not possible to save visits to any calendar other than the user's default
+calendar. Many users asked for the ability to save visits to a calendar other than the default, especially to
+a shared calendar. The user can now choose any existing calendar to save visits to.
+
+To change the calendar events are saved to, click on the Calendar Name line in the Visit main screen and choose whatever calendar you want. Then click on Save.  
+    
+Saving to a shared calendar requires a differnt level of permissions. If you see the Calendard Permissions line with a red background, click on it
+and select 'Full Access'.
+
+I created a very short video that will walk you through enabling full access to calendars. [View video](http://help.visitd.app/videos)
+
+#### Webhooks - Experimental Feature
+I have added the option for Visitd to make an http call whenever you arrive or depart a location. This is a very cool feature, for a very small number of users.  
+    
+If you understand webhooks, it opens a world of possibilities. If you have an opinion on this feature, I welcome it.
+
+
+
+</div>

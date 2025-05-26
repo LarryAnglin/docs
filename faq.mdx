@@ -1,0 +1,97 @@
+---
+title: Frequently Asked Questions
+description: Common questions and answers about Visitd
+---
+
+## Frequently Asked Questions ##
+
+__How secure is Visitd?__
+
+As secure as I can make it. I do a number of things to make Visitd secure.
+                 
+1.  The data never leaves your phone, unless you specifically export it from the program. I have no visibility into your location data.
+                 
+2. Data is stored locally using the SwiftData database from Apple that leverages iOS security.
+                 
+3. There are no third-party libraries in Visitd. Every line of code is either supplied by Apple or was typed by me personally.
+
+4.  I use the new write-only feature of iOS 17 to save data to your calendar. I never have read access to any calendar on the phone.
+
+If you are really concerned about your location data getting out, you should not have a smart phone.
+
+<br />
+<hr />
+
+
+__How do I save to a calender other than the default calendar.__
+
+Click on the Calendar Name line in the Visit main screen and choose whatever calendar you want. Then click on Save.
+
+<br />
+<hr />
+
+
+__Why am I missing some visits?__
+
+There are several issues that cause your phone to miss an occasional visit:
+
+1. The phone ran out of power. If the phone had no power at the time of a departure, that visit will be missed.
+
+2. Location services were disabled. If location services are disabled, either globally or in the Visitd app, visits will be missed. If you suspect location services may be disabled, run the Visitd app and it should indicate whether location services are available. If Visitd indictes a problem, click on the red item to resolve the problem.
+
+3. Visit tracking was temporarily disabled. If you run the Visitd app, you can pause location tracking. Clicking the red item will re-enable tracking.
+
+4.  The phone was in airplane mode.
+
+If you experience multiple missed visits and none of these issues are the cause, use the feedback form in the app to let me know and I'll try to take a look.
+
+
+<br />
+<hr />
+
+
+__What is the purpose of the export function?__
+
+Visitd was designed to answer questions I have about where I spend my time. Questions like: "How many hours did I spend at customer site X? Or, when was the last time I was in location Y? 
+Most of those types of questions can be easily answered using the calendar, but occassionally, a map is more useful. And sometimes a spreadsheet is appropriate.
+
+
+<br />
+<hr />
+
+        
+__Why does Visitd have such a simple UI?__
+
+The goal is for the user to either never or rarely have to launch the program. We all have enough programs insisting on our attention, I don't need any more. I just need a program to run in the background and do what it is supposed to do.
+
+<br />
+<hr />
+
+        
+__Will Visitd impact my battery life?__
+
+Every program uses some power, but I have made every effort to make sure Visitd uses as little as possible. Visitd uses a power efficient iOS feature for only tracking fairly large changes in location. If there is any other program tracking location, then Visitd will add almost no additional overhead. If Visitd is the only program tracking location, it will only turn on the GPS when you stop moving or start moving. Whether or not you are moving is determined by the accelerometers. When you were moving but stop, a visit is started. When you were not moving but start, a visit is ended.
+
+That's my best understanding of how the location trackign works from using it for years, but I may be wrong. Apple does not explain exactly how the determine a visit.
+
+<br />
+<hr />
+
+
+__How long do I have to be somewhere to trigger a visit?__
+
+Apple does not say exactly how long it takes to trigger a visit. My experience is about 5 minutes, but Apple could change that at any time. Sitting at a long red light could trigger a visit, but it's unlikely.
+
+<br />
+<hr />
+
+
+__How accurate is the location?__
+
+The accuracy of the visit will vary, but is normally about 30 feet. It works well if you are going between buildings, but not so well if you are moving between offices in the same building.
+
+Since the GPS coordinates will vary, it is possible to get different addresses for the same location. This is a case where seeing your visits on a map may make more sense than seeing them on a calendar.
+
+If there is another program tracking your location using more accuracy, like a navigation program, the visit accuracy will also improve.
+
+The accuracy of the GPS readings is noted for each visit.

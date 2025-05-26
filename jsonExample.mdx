@@ -1,0 +1,51 @@
+---
+title: JSON Example Export
+description: Understanding the JSON export format
+---
+
+__JSON Example Export__
+
+
+JSON export should only be used by people familiar with JSON and how to use it. The information below will help you understand the file format.
+
+__JSON Fields__
+
+The exported data is an array of objects each of which has the following properties:
+
+| Name      | Type | Comments |
+| ----------- | ----------- | ----------- |
+| title      | String       | Title is computed based on the address returned from reverse geocode. |
+| thoroughfare      | String       | Street name |
+| subThoroughfare      | String       | Secondary street name |
+| subAdministrativeArea      | String       | A county in the US. |
+| locality      | String       | City name |
+| administrativeArea      | String       |  A state in the US. |
+| postalCode      | String       | ZIP Code |
+| horizontalAccuracy      | Double       | The horizontal accuracy of the GPS reading in meters.|
+| longitude      | Double       | The longitude returned by the GPS. |
+| latitude      | Double       | The latitude returned by the GPS. |
+| timeZone      | String       | The name of the time zone. |
+| arrivalDateTimestamp      | Double       | A Unix timestamp of the start of the visit. |
+| departureDateTimestamp      | Double       | A Unix timestamp of the end of the visit. |
+
+
+The example record below may be helpful.
+
+```JSON
+[{
+    "title":"IH-35W N",
+    "thoroughfare":"IH-35W N",
+    "subThoroughfare":"",
+    "subAdministrativeArea":"Tarrant County"
+    "locality":"Fort Worth",
+    "administrativeArea":"TX",
+    "postalCode":"76028",
+    "horizontalAccuracy":92.9205308136514,
+    "longitude":-97.3186231133265,
+    "latitude":32.57120817087956,
+    "timeZone":"America\/Chicago",
+    "arrivalDateTimestamp":1714850643.0170732,
+    "departureDateTimestamp":1714851166.9999578,
+}]
+
+```
