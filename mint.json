@@ -6,6 +6,7 @@
     "light": "/visitdlogo.svg"
   },
   "favicon": "/visitdlogo.png",
+  "versions": ["v1"],
   "colors": {
     "primary": "#007AFF",
     "light": "#4DA6FF",
@@ -30,7 +31,7 @@
     {
       "group": "Getting Started",
       "pages": [
-        "index",
+        "introduction",
         "locationTracking",
         "calendar"
       ]
